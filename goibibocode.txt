@@ -1,0 +1,97 @@
+package com.qa.tests;
+
+import java.time.Duration;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class goibibo {
+	
+	
+	public static void main(String[] args)
+	{
+		
+		WebDriverManager.chromedriver().setup();
+		
+		WebDriver driver= new ChromeDriver();
+		driver.get("https://www.goibibo.com/");	
+		driver.manage().window().maximize();
+		
+		driver.findElement(By.xpath("//a[@class='nav-link' and text()='Hotels']")).click();
+		
+	WebElement Location =driver.findElement(By.xpath("//input[@placeholder='e.g. - Area, Landmark or Hotel Name']"));
+	Location.sendKeys("OOTY");
+	
+	/*String requiredCity = "OOTY";
+	List<WebElement>List_places = driver.findElements(By.xpath("//ul[@role='listbox']"));
+	System.out.println(List_places.size());*/
+	
+	/*for(int i=0;i<List_places.size();i++)
+    {
+    	String Currentlocation = List_places.get(i).getText();
+    	
+    	if(Currentlocation.contains(requiredCity)){
+    		System.out.println("Found the city : "+Currentlocation);
+        	List_places.get(i).click();
+    	}*/
+	String Text;
+	do
+	{
+	Location.sendKeys(Keys.ARROW_DOWN);
+	
+	 Text=Location.getAttribute("value");
+	
+	if(Text.equals("OOTY"))
+	{
+	   
+		Location.sendKeys(Keys.ENTER);
+		System.out.println("value is "+Text);
+		break;
+		}
+	else 
+	{
+		
+		System.out.println("values doesnot match");
+		
+	}
+	}
+	while(!Text.isEmpty());
+	{
+		int day=15;
+		
+		WebElement Checkindate=driver.findElement(By.xpath("//div[@class='SearchBlockUIstyles__AutoSuggestCheckText-sc-fity7j-19 gokhdB' and contains(text(), 'Check-in')]"));
+		Checkindate.click();
+		
+		//new WebDriverWait(driver,10).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("dcalendarstyles__CalendarMainWrapperDiv-sc-r2jz2t-12 cxSlkB")));
+		driver.findElement(By.xpath("//div[@class='dcalendarstyles__DayAndDateWrapperDiv-sc-r2jz2t-5 bhqgnF']//ul[@class='dcalendarstyles__DateWrapDiv-sc-r2jz2t-7 dSOiPK']//li(26)")).click();
+		}
+	}
+}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
